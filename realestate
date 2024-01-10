@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+        }
+        .propertyItem {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        #confirmation {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real Estate Reservation</h1>
+    <form id="reservationForm">
+        <div class="form-section active" id="section1">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required><br>
+
+            <button type="button" onclick="nextSection(1)">Next</button>
+        </div>
+
+        <div class="form-section" id="section2">
+            <label for="property">Select Property:</label>
+            <select id="property" name="property" required>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+                <option value="condo">Condo</option>
+                <!-- Add more options as needed -->
+            </select><br>
+
+            <label for="date">Preferred Reservation Date:</label>
+            <input type="date" id="date" name="date" required><br>
+
+            <button type="button" onclick="nextSection(2)">Next</button>
+        </div>
+
+        <div class="form-section" id="section3">
+            <button type="button" onclick="submitReservation()">Reserve Property</button>
+        </div>
+    </form>
+
+    <div id="confirmation">
+        <p>Thank you for reserving a property!</p>
+        <p>Your reservation details:</p>
+        <ul id="confirmationDetails"></ul>
+    </div>
+
+    <script>
+        let properties = [];
+
+        function nextSection(currentSection) {
+            const currentSectionDiv = document.getElementById(`section${currentSection}`);
+            const nextSectionDiv = document.getElementById(`section${currentSection + 1}`);
+
+            if (validateFields(currentSectionDiv)) {
+                currentSectionDiv.classList.remove('active');
+                nextSectionDiv.classList.add('active');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        function validateFields(section) {
+            const requiredInputs = section.querySelectorAll('[required]');
+            for (const input of requiredInputs) {
+                if (!input.value.trim()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function submitReservation() {
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                property: document.getElementById('property').value,
+                date: document.getElementById('date').value,
+            };
+
+            // Display confirmation details
+            const confirmationDetails = document.getElementById('confirmationDetails');
+            confirmationDetails.innerHTML = '';
+            for (const key in formData) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)}: ${formData[key]}`;
+                confirmationDetails.appendChild(listItem);
+            }
+
+            // Hide the form and display the confirmation
+            const form = document.getElementById('reservationForm');
+            const confirmation = document.getElementById('confirmation');
+            form.style.display = 'none';
+            confirmation.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
