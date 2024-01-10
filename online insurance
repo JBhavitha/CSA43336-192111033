@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #insuranceInfo {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header>
+    <h1>Welcome to the Insurance Management System</h1>
+</header>
+
+<!-- Customer Information Section -->
+<section>
+    <h2>Customer Information</h2>
+    <!-- Insurance Form -->
+    <form id="insuranceForm">
+        <!-- Input for Customer Name -->
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" required placeholder="Enter your full name">
+
+        <!-- Dropdown for Policy Type -->
+        <label for="policyType">Select Policy Type:</label>
+        <select id="policyType" required>
+            <option value="health">Health Insurance</option>
+            <option value="auto">Auto Insurance</option>
+            <option value="home">Home Insurance</option>
+        </select>
+
+        <!-- Button to Submit Form -->
+        <button type="button" onclick="showInsuranceInfo()">Submit</button>
+    </form>
+</section>
+
+<!-- Insurance Details Section -->
+<section id="insuranceInfo">
+    <h2>Insurance Details</h2>
+    <!-- Display Output Dynamically -->
+    <p id="output"></p>
+    <p>Thank you for choosing our insurance services. Our representative will contact you shortly.</p>
+</section>
+
+<!-- JavaScript Section -->
+<script>
+    // Function to show insurance details dynamically
+    function showInsuranceInfo() {
+        // Get values from form inputs
+        var customerName = document.getElementById("customerName").value;
+        var policyType = document.getElementById("policyType").value;
+
+        // Prepare output string
+        var output = "Customer Name: " + customerName + "<br>Policy Type: " + policyType;
+
+        // Display output and hide the form
+        document.getElementById("output").innerHTML = output;
+        document.getElementById("insuranceForm").style.display = "none";
+        document.getElementById("insuranceInfo").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
+ main
