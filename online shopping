@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Mall</title>
+    <style>
+        /* Add your CSS styles here */
+        /* Style for login form, item display, etc. */
+    </style>
+</head>
+<body>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+        <h2>Login</h2>
+        <form id="login">
+            Username: <input type="text" id="username" required><br>
+            Password: <input type="password" id="password" required><br>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+    </div>
+
+    <!-- Items Display -->
+    <div id="itemsDisplay" style="display:none;">
+        <h2>Available Items</h2>
+        <ul id="itemList">
+            <!-- Item details will be dynamically added here -->
+        </ul>
+
+        <!-- Remove Items -->
+        <h2>Remove Items</h2>
+        <form id="removeItemForm">
+            Item ID to Remove: <input type="text" id="removeItemId" required><br>
+            <button type="button" onclick="removeItem()">Remove Item</button>
+        </form>
+    </div>
+
+    <!-- Order Status -->
+    <div id="orderStatus" style="display:none;">
+        <h2>Order Status</h2>
+        <p id="statusMessage">No orders placed yet.</p>
+    </div>
+
+    <script>
+        // JavaScript for handling dynamic functionality
+        function login() {
+            // Add your login logic here
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("itemsDisplay").style.display = "block";
+        }
+
+        // Sample items for demonstration
+        const items = [
+            { id: 1, name: "T-Shirt", availability: true },
+            { id: 2, name: "Jeans", availability: false },
+            { id: 3, name: "Dress", availability: true }
+        ];
+
+        // Display items dynamically
+        function displayItems() {
+            const itemList = document.getElementById("itemList");
+            itemList.innerHTML = ""; // Clear previous items
+
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `ID: ${item.id}, Name: ${item.name}, Availability: ${item.availability ? "Available" : "Not Available"}`;
+                itemList.appendChild(listItem);
+            });
+        }
+
+        // Remove item by ID
+        function removeItem() {
+            const removeItemId = document.getElementById("removeItemId").value;
+            const index = items.findIndex(item => item.id == removeItemId);
+
+            if (index !== -1) {
+                items.splice(index, 1);
+                displayItems();
+            } else {
+                alert("Item not found!");
+            }
+        }
+
+        // Check order status
+        function checkOrderStatus() {
+            const statusMessage = document.getElementById("statusMessage");
+            // Add your order status logic here
+            statusMessage.textContent = "Orders are being processed.";
+        }
+
+        // Display items on page load
+        displayItems();
+    </script>
+
+</body>
+</html>
